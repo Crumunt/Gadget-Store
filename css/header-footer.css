@@ -47,14 +47,27 @@ ul a:hover {
     color: var(--bg-highlight-hover);
 }
 
-form {
+.search-form {
     display: flex;
     justify-content: center;
     gap: .5rem;
     width: 40%;
 }
 
-form input {
+li {
+    position: relative;
+}
+li span {
+    position: absolute;
+    border-radius: 50%;
+    width: 20px;
+    text-align: center;
+    right: -1;
+    background-color: var(--bg-secondary);
+    color: whitesmoke;
+}
+
+form > input[name="search"] {
     width: 100%;
     padding: 1rem;
     font-size: 1.25rem;
