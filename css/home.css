@@ -48,13 +48,13 @@ img {
     border-radius: 1rem;
 }
 
-button {
+section button {
     color: whitesmoke;
     background-color: var(--bg-highlight);
     transition: all 200ms ease;
 }
 
-button:hover {
+section button:hover {
     color: var(--bg-highlight-hover);
     background-color: whitesmoke;
 }
@@ -77,3 +77,36 @@ button:hover {
     width: 90%;
 }
 
+.view-more-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.view-more-wrapper button {
+    width: 100%;
+    padding: 5rem 0;
+}
+
+.view-more-wrapper:hover button {
+    border: none;
+    transition: all 800ms ease;
+    clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
+    animation: nudge 500ms infinite;
+}
+
+@keyframes nudge {
+    
+    0% {
+        translate: 10% 0;
+    }
+
+    50% {
+        translate: 8% 0;
+    }
+
+    100% {
+        translate: 10% 0;
+    }
+
+}

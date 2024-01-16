@@ -1,0 +1,65 @@
+main {
+    display: flex;
+    /* margin-left: 2rem; */
+    padding: 1rem 2rem;
+}
+
+aside,
+.profile-wrapper form {
+    display: flex;
+    flex-direction: column;
+}
+
+aside {
+    height: 100%;
+    padding: 2rem;
+    gap: 1rem;
+    border: 1px solid black;
+}
+
+aside button,
+.profile-wrapper form input[type="submit"] {
+    padding: 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    background-color: var(--bg-highlight);
+    color: whitesmoke;
+    border-radius: 1rem 2rem;
+    border: 1px solid black;
+}
+
+.content-wrapper {
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.profile-wrapper {
+    width: 100%;
+    border: 1px solid black;
+    padding: 5rem;
+    width: 50%;
+}
+
+.profile-wrapper form {
+    gap: 1rem;
+}
+
+.profile-wrapper form input[type="text"] {
+    width: 40%;
+    font-size: 1.25rem;
+    padding: 1rem;
+}
+
+.profile-wrapper form label:nth-child(2) > input[type="text"],
+.profile-wrapper form label:nth-child(3) > input[type="radio"]:first-child {
+    margin-left: 2.2rem;
+}
+
+.profile-wrapper form input[type="submit"] {
+
+}
+
+.password-wrapper {
+    display: none;
+}

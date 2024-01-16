@@ -151,9 +151,14 @@ main {
     width: 100%;
 }
 
+.item .quantity-wrapper {
+    gap: 1rem;
+}
+
 .quantity-wrapper .quantity {
     text-align: center;
-    padding: 1rem;
+    /* padding: 1rem; */
+    width: 30px;
 }
 
 .item .action-wrapper button {

@@ -1,0 +1,59 @@
+.content-wrapper {
+    display: flex;
+}
+
+.topContent {
+    padding: 1.5rem;
+}
+
+.topContent {
+    display: flex;
+}
+
+.image-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    max-height: 573px;
+    overflow: hidden;
+    border: 1px solid black;
+}
+
+.image-wrapper img {
+    width: 100%;
+}
+
+.basicInfo-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.desc-wrapper {
+    width: 100%;
+}
+
+.header p {
+    font-size: 1.25rem;
+}
+
+.action-form button {
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 1rem 2rem;
+    font-size: 1.25rem;
+    background-color: var(--bg-highlight);
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.action-form button:nth-child(2) {
+    border-radius: 2rem 1rem;
+}
+
+.action-form button:hover {
+    background-color: var(--bg-highlight-hover);
+}

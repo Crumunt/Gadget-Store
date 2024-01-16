@@ -54,20 +54,7 @@ ul a:hover {
     width: 40%;
 }
 
-li {
-    position: relative;
-}
-li span {
-    position: absolute;
-    border-radius: 50%;
-    width: 20px;
-    text-align: center;
-    right: -1;
-    background-color: var(--bg-secondary);
-    color: whitesmoke;
-}
-
-form > input[name="search"] {
+.search-form > input[name="search"] {
     width: 100%;
     padding: 1rem;
     font-size: 1.25rem;
@@ -75,7 +62,7 @@ form > input[name="search"] {
     border: 1px solid black;
 }
 
-form button {
+.search-form button {
     padding: 1rem;
     border-radius: 8px;
     border: 1px solid black;

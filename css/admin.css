@@ -1,0 +1,328 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------HEADER SECTION----------- */
+
+header {
+    padding: 2rem;
+    background-color: var(--bg-secondary);
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+li a {
+    text-decoration: none;
+    color: whitesmoke;
+    display: inline-block;
+    position: relative;
+    font-size: 1.25rem;
+}
+
+li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: whitesmoke;
+    transform: scaleX(0);
+    /* transform-origin: bottom right; */
+    transition: transform 250ms ease-out;
+}
+
+li a:hover::after {
+    transform: scaleX(1);
+    /* transform-origin: bottom left; */
+}
+
+li a[active=""]::after {
+    transform: scaleX(1);
+}
+
+
+/* --------HEADER SECTION ENDS-------- */
+
+
+.header-wrapper {
+    display: grid;
+    place-items: center;
+    margin: 2rem;
+    padding: 2rem 2rem 1rem;
+}
+
+/* .header-wrapper h1 {
+    text-align: center;
+} */
+
+.header-wrapper p#success {
+    font-size: 1.5rem;
+    color: var(--bg-button-update);
+}
+
+.header-wrapper p#invalid {
+    font-size: 1.5rem;
+    color: var(--bg-button-remove);
+}
+
+.header-wrapper button.add-button {
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: var(--bg-primary);
+    color: whitesmoke;
+    font-size: 1.25rem;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+
+/* -------MAIN SECTION STARTS------------ */
+
+
+main.dashboard {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.box-wrapper {
+    background-color: var(--bg-primary);
+    padding: 2rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    text-align: center;
+    font-size: 2rem;
+    color: whitesmoke;
+    text-transform: uppercase;
+}
+
+.box-wrapper .top {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+}
+
+.box-wrapper .top i {
+    margin-bottom: 2rem;
+}
+
+/* -------MAIN SECTION ENDS------------ */
+
+
+/* ------MODIFY TABLE START------------ */
+
+main:not(main.dashboard) {
+    display: grid;
+    place-items: center;
+    padding: 1rem 2rem;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead th {
+    background-color: var(--bg-header);
+}
+
+table thead th,
+table tbody td {
+    padding: 1rem;
+    border: 1px solid black;
+    text-align: center;
+}
+
+thead th:first-child {
+    width: 10%;
+}
+
+thead th:nth-child(2),
+thead th:nth-child(3) {
+    width: 30%;
+}
+
+thead.admin th:nth-child(4) {
+    width: 40%;
+}
+
+table tbody td:nth-child(4) {
+    padding: 2rem;
+}
+
+table a,
+form.update_form input[type="submit"],
+form.update_form input[type="submit"].cancel {
+    text-decoration: none;
+    padding: 1rem;
+    font-size: 1rem;
+    color: whitesmoke;
+    border: 1px solid black;
+}
+
+table a.update,
+form.update_form input[type="submit"] {
+    background-color: var(--bg-button-update);
+}
+
+table a.remove,
+form.update_form input[type="submit"].remove {
+    background-color: var(--bg-button-remove);
+}
+
+table img {
+    display: block;
+    object-fit: cover;
+    max-height: 200px;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* ------MODIFY TABLE ENDS------------- */
+
+
+/* --------------FORM START---------------------- */
+
+.form-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form.update_form {
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    gap: 2rem;
+    padding: 2rem;
+    width: 50%;
+    vertical-align: middle;
+}
+
+form.update_form label {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+form.update_form input {
+    font-size: 1.25rem;
+    padding: .5rem;
+    width: 60%;
+}
+
+form.update_form input:nth-child(1) {
+    margin-left: 3.5rem;
+}
+
+form.update_form input[name="oldPassword"] {
+    margin-left: 8px;
+}
+
+form.update_form .button-wrapper {
+    display: grid;
+    place-items: center;
+}
+
+form.update_form .button-wrapper input {
+    margin: 1rem 0;
+    width: 50%;
+}
+
+form.update_form input[name="product_quantity"] {
+    margin-left: 6rem;
+}
+
+form.update_form input[name="product_price"] {
+    margin-left: 7.8rem;
+}
+
+/* --------------FORM ENDS---------------------- */
+
+/* ------MODAL START------------------- */
+
+.modal {
+    max-width: 70ch;
+    margin: auto;
+    padding: 2rem;
+    border: none;
+    box-shadow: 0 0 1em rgb(0 0 0 / .3);
+}
+
+.modal form {
+    margin-top: 2rem;
+    display: grid;
+    place-items: center;
+    gap: 2rem;
+}
+
+.modal form label > input {
+    width: 300px;
+    padding: .5rem;
+    font-size: 1.2rem;
+}
+
+.modal form label:nth-child(2) > input {
+    margin-left: 1px;
+}
+
+.modal form label:nth-child(3) > input {
+    margin-left: 5px;
+}
+
+form.product_form label {
+    width: 100%;
+}
+
+form.product_form label > input[name="product_quantity"] {
+    margin-left: 2.7rem;
+}
+
+form.product_form label > input[name="product_price"] {
+    margin-left: 4.5rem;
+}
+
+.modal form input[type="submit"],
+.modal form input[type="button"] {
+    padding: 1rem;
+    font-size: 1.25rem;
+    color: whitesmoke;
+    border: 1px solid black;
+}
+
+.modal form input[type="submit"] {
+    background-color: var(--bg-button-update);
+}
+
+.modal form input[type="button"] {
+    background-color: var(--bg-button-remove);
+}
+
+
+/* ------MODAL ENDS-------------------- */
+
+/* ----------FOOTER SECTION---------- */
+
+footer .footer-wrapper {
+    background-color: var(--bg-footer);
+    padding: 2rem;
+}
+
+footer p {
+    text-align: center;
+}
+
+/* ----------FOOTER SECTION ENDS---------- */
