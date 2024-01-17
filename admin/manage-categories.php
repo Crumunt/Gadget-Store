@@ -32,7 +32,7 @@ include "partials/header.php";
         </label>
 
 
-        <input type="submit" name="save_admin" value="Save Changes">
+        <input type="submit" name="save_category" value="Save Changes">
         <input type="button" class="close-modal" value="Close">
     </form>
 
@@ -51,6 +51,7 @@ include "partials/header.php";
             <?php
             $sql = "SELECT * FROM category";
             $result = mysqli_query($conn, $sql);
+
 
             if ($result == true) {
 
@@ -71,10 +72,10 @@ include "partials/header.php";
                         <tr>
                             <td><?php echo $category_count++; ?></td>
                             <td><?php echo $category_name; ?></td>
-                            <td><?php ($active == 0) ? "Active" : "Not Active"; ?></td>
+                            <td><?php echo ($active == 0) ? "Active" : "Not Active"; ?></td>
                             <td>
-                                <a href="update-category.php?id=<?php echo $id; ?>" class="update">Update Admin</a>
-                                <a href="manage-categories.php?id=<?php echo $id; ?>" class="remove">Delete Admin</a>
+                                <a href="update-category.php?id=<?php echo $id; ?>" class="update">Update Category</a>
+                                <a href="manage-categories.php?id=<?php echo $id; ?>" class="remove">Delete Category</a>
                             </td>
                         </tr>
             <?php
@@ -89,5 +90,59 @@ include "partials/header.php";
     </table>
 
 </main>
+
+<?php
+function returnHeader()
+{
+    header("Location: {$_SERVER['PHP_SELF']}");
+    ob_flush();
+}
+
+function queryMessage($state, $result) {
+
+    if($result) {
+        $_SESSION['add'] = "Category {$state} Successfuly";
+        $_SESSION['state'] = "success";
+    }else {
+        $_SESSION['add'] = "Category {$state} Unsuccessfully";
+        $_SESSION['state'] = "invalid";
+    }
+
+    returnHeader();
+
+}
+?>
+
+<?php
+
+    if(isset($_POST["save_category"])) {
+
+        
+        $category_name = $_POST["category_name"];
+        $isActive = $_POST["isActive"];
+
+        $sql = "INSERT INTO category (category_name, active)
+                VALUES ('$category_name', '$isActive')";
+    
+        $result = mysqli_query($conn, $sql);
+
+        queryMessage("Added", $result);
+
+    }
+
+    if(isset($_GET["id"])) {
+
+        $category_id = $_GET["id"];
+
+        $sql = "DELETE FROM category WHERE category_id={$category_id}";
+
+        $result = mysqli_query($conn, $sql);
+
+        queryMessage("Delete", $result);
+    }
+
+
+    mysqli_close($conn);
+?>
 
 <?php include "partials/footer.php"; ?>

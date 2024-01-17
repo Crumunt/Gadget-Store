@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 $activePage = basename($_SERVER['PHP_SELF'], ".php");
 include "../config/connection.php";
@@ -77,20 +78,15 @@ if (isset($_POST["save"])) {
     $result = mysqli_query($conn, $sql);
 
     //query succeded
-    if ($result) {
-        $_SESSION['add'] = "Product '{$product_name}' updated successfully!";
-        $_SESSION['state'] = "success";
-        header("location: manage-products.php");
-    } else {
-        $_SESSION['add'] = "Product '{$product_name}' was not updated";
-        $_SESSION['state'] = "invalid";
-        header("location: manage-products.php");
-    }
+    queryMessage("Update", $result);
+
 } elseif (isset($_POST["cancel"])) {
     $_SESSION["add"] = "Update Cancelled";
     $_SESSION['state'] = "invalid";
-    header("location: manage-products.php");
+    returnHeader();
 }
+
+mysqli_close($conn);
 ?>
 
 <!-- functions -->
@@ -128,7 +124,7 @@ function checkQuery()
         if (file_exists($image_name)) {
             $_SESSION["add"] = "Image Already exists.";
             $_SESSION["state"] = "invalid";
-            header("location: manage-products.php");
+            returnHeader();
         } else {
             // move image to directory
             $upload = move_uploaded_file($source_path, $destination_path);
@@ -137,7 +133,7 @@ function checkQuery()
             if ($upload == false) {
                 $_SESSION["add"] = "Failed to upload image.";
                 $_SESSION["state"] = "invalid";
-                header("location: manage-products.php");
+                returnHeader();
             }
 
             $sql = "UPDATE products SET
@@ -157,6 +153,30 @@ function checkQuery()
 
     return $sql;
 }
+?>
+
+<?php
+
+function returnHeader()
+{
+    header("Location: manage-products.php");
+    ob_flush();
+}
+
+function queryMessage($state, $result)
+{
+
+    if ($result) {
+        $_SESSION['add'] = "Product {$state} Successfuly";
+        $_SESSION['state'] = "success";
+    } else {
+        $_SESSION['add'] = "Product {$state} Unsuccessfully";
+        $_SESSION['state'] = "invalid";
+    }
+
+    returnHeader();
+}
+
 ?>
 
 <?php

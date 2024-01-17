@@ -29,6 +29,8 @@ include "partials/header.php";
 
     $result -> free_result();
 
+
+    mysqli_close($conn);
 ?>
 
 <div class="header-wrapper">

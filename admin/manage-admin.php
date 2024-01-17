@@ -1,8 +1,9 @@
 <?php
-
+ob_start();
 session_start();
 $activePage = basename($_SERVER['PHP_SELF'], ".php");
 include "../config/connection.php";
+include "partials/session_message.php";
 include "partials/header.php";
 ?>
 
@@ -20,7 +21,7 @@ include "partials/header.php";
 
 <dialog class="modal" id="modal">
     <h2>Add Admin</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
         <label for="fullname">
             Full Name: <input type="text" name="admin_fullname">
         </label>
@@ -71,19 +72,19 @@ include "partials/header.php";
 
             ?>
                         <tr>
-                            <td><?php echo $admin_count++;?></td>
-                            <td><?php echo $fullname;?></td>
-                            <td><?php echo $username;?></td>
+                            <td><?php echo $admin_count++; ?></td>
+                            <td><?php echo $fullname; ?></td>
+                            <td><?php echo $username; ?></td>
                             <td>
-                                <a href="update-admin.php?id=<?php echo $id;?>" class="update">Update Admin</a>
-                                <a href="manage-admin.php?id=<?php echo $id;?>" class="remove">Delete Admin</a>
+                                <a href="update-admin.php?id=<?php echo $id; ?>" class="update">Update Admin</a>
+                                <a href="manage-admin.php?id=<?php echo $id; ?>" class="remove">Delete Admin</a>
                             </td>
                         </tr>
             <?php
 
                     }
                 } else { //we don't have data in database
-                    
+
                 }
             }
             ?>
@@ -102,15 +103,15 @@ if (isset($_POST["save_admin"])) {
     if (empty($fullname)) {
         $_SESSION['add'] = "Please provide name";
         $_SESSION['state'] = "invalid";
-        header('Location: manage-admin.php');
+        returnHeader();
     } elseif (empty($username)) {
         $_SESSION['add'] = "Please provide username";
         $_SESSION['state'] = "invalid";
-        header('Location: manage-admin.php');
+        returnHeader();
     } elseif (empty($password)) {
         $_SESSION['add'] = "Please provide password";
         $_SESSION['state'] = "invalid";
-        header('Location: manage-admin.php');
+        returnHeader();
     } else {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -119,36 +120,48 @@ if (isset($_POST["save_admin"])) {
 
         $result = mysqli_query($conn, $sql);
 
-        if ($result) {
-            $_SESSION['add'] = "Admin Added Successfully";
-        } else {
-            $_SESSION['add'] = "Admin Added Unsuccessfully";
-        }
+        queryMessage("Added", $result);
 
-        header('Location: manage-admin.php');
+        // returnHeader();
     }
 
     // echo $_POST["save_admin"];
 }
 
-if(isset($_GET["id"])) {
+if (isset($_GET["id"])) {
 
     $admin_id = $_GET["id"];
     $sql = "DELETE FROM admin WHERE id=$admin_id";
     $result = mysqli_query($conn, $sql);
 
-    if($result) {
-        $_SESSION['add'] = "Admin Removed Successfully";
-        $_SESSION['state'] = "success";
-        header('Location: manage-admin.php');
-    }else {
-        $_SESSION['add'] = "Admin Removed Unsuccessfully";
-        $_SESSION['state'] = "invalid";
-        header('Location: manage-admin.php');
-    }
+    queryMessage("Remove", $result);
 }
 
 mysqli_close($conn);
+?>
+
+<?php
+
+function returnHeader()
+{
+    header("Location: {$_SERVER['PHP_SELF']}");
+    ob_flush();
+}
+
+function queryMessage($state, $result) {
+
+    if($result) {
+        $_SESSION['add'] = "Admin {$state} Successfuly";
+        $_SESSION['state'] = "success";
+    }else {
+        $_SESSION['add'] = "Admin {$state} Unsuccessfully";
+        $_SESSION['state'] = "invalid";
+    }
+
+    returnHeader();
+
+}
+
 ?>
 
 <?php include "partials/footer.php"; ?>

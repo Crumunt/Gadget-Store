@@ -155,7 +155,7 @@ if (isset($_POST["add_product"])) {
     if ($upload == false) {
       $_SESSION["add"] = "Failed to upload image.";
       $_SESSION["state"] = "invalid";
-      header("location: manage-products.php");
+      returnHeader();
     }
   } else {
     $image_name = "";
@@ -166,15 +166,7 @@ if (isset($_POST["add_product"])) {
 
   $result = mysqli_query($conn, $sql);
 
-  if ($result) {
-    $_SESSION['add'] = "Product Added Successfully";
-    $_SESSION['state'] = "success";
-    header('Location: manage-products.php');
-  } else {
-    $_SESSION['add'] = "Product Added Unsuccessfully";
-    $_SESSION['state'] = "invalid";
-    header('Location: manage-products.php');
-  }
+  queryMessage("Added", $result);
 }
 
 if (isset($_GET["id"])) {
@@ -184,38 +176,51 @@ if (isset($_GET["id"])) {
 
   $product_id = $_GET["id"];
 
-  $getProductImageNameQuery = "SELECT product_image FROM products WHERE product_id=$product_id";
+  // $getProductImageNameQuery = "SELECT product_image FROM products WHERE product_id=$product_id";
 
-  $result = mysqli_query($conn, $getProductImageNameQuery);
+  // $result = mysqli_query($conn, $getProductImageNameQuery);
 
-  if ($result) {
+  // if ($result) {
 
-    $row = mysqli_fetch_assoc($result);
+  //   $row = mysqli_fetch_assoc($result);
 
-    $productImageName = $row["product_image"];
-  }
+  //   $productImageName = $row["product_image"];
+  // }
 
-  mysqli_free_result($result);
+  // mysqli_free_result($result);
 
   $sql = "DELETE FROM products WHERE product_id=$product_id";
 
   $result = mysqli_query($conn, $sql);
 
-  if ($result) {
+  queryMessage("Remove", $result);
 
-    $_SESSION['add'] = "Product Removed Successfully";
-    $_SESSION['state'] = "success";
-    header("Refresh: $sec; url=$page");
-    ob_end_flush();
-  } else {
-    $_SESSION['add'] = "Product Removed Unsuccessfully";
-    $_SESSION['state'] = "invalid";
-    header("Refresh: $sec; url=$page");
-    ob_end_flush();
-  }
+  
 }
 
 mysqli_close($conn);
+?>
+
+<?php
+function returnHeader()
+{
+    header("Location: {$_SERVER['PHP_SELF']}");
+    ob_flush();
+}
+
+function queryMessage($state, $result) {
+
+    if($result) {
+        $_SESSION['add'] = "Product {$state} Successfuly";
+        $_SESSION['state'] = "success";
+    }else {
+        $_SESSION['add'] = "Product {$state} Unsuccessfully";
+        $_SESSION['state'] = "invalid";
+    }
+
+    returnHeader();
+
+}
 ?>
 
 <?php include "partials/footer.php"; ?>

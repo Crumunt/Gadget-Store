@@ -146,7 +146,7 @@ table tbody td {
 }
 
 thead th:first-child {
-    width: 10%;
+    width: 7%;
 }
 
 thead th:nth-child(2),
@@ -189,6 +189,16 @@ table img {
     max-width: 200px;
     margin-left: auto;
     margin-right: auto;
+}
+
+form#category label[for="isActive"] {
+    justify-content: left;
+    margin-left: 8.3rem;
+}
+
+form#category label[for="isActive"] input {
+    width: 10%;
+    margin-left: 5rem;
 }
 
 

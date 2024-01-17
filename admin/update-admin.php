@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 $activePage = basename($_SERVER['PHP_SELF'], ".php");
 include "../config/connection.php";
@@ -58,25 +59,42 @@ if (isset($_POST["save"])) {
 
     $result = mysqli_query($conn, $sql);
 
-
-
     //query succeded
-    if ($result) {
-        $_SESSION['add'] = "Admin '{$username}' updated successfully!";
-        $_SESSION['state'] = "success";
-        header("location: manage-admin.php");
-    } else {
-        $_SESSION['add'] = "Admin {$username} was not updated";
-        $_SESSION['state'] = "invalid";
-        header("location: manage-admin.php");
-    }
+    queryMessage("Update", $result);
+
 } elseif (isset($_POST["cancel"])) {
     $_SESSION["add"] = "Update Cancelled";
     $_SESSION['state'] = "invalid";
-    header("location: manage-admin.php");
+    returnHeader();
 }
+
+mysqli_close($conn);
 ?>
 
+
+<?php
+
+function returnHeader()
+{
+    header("Location: manage-admin.php");
+    ob_flush();
+}
+
+function queryMessage($state, $result) {
+
+    if($result) {
+        $_SESSION['add'] = "Admin {$state} Successfuly";
+        $_SESSION['state'] = "success";
+    }else {
+        $_SESSION['add'] = "Admin {$state} Unsuccessfully";
+        $_SESSION['state'] = "invalid";
+    }
+
+    returnHeader();
+
+}
+
+?>
 
 <?php
 include "partials/footer.php";
