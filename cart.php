@@ -30,10 +30,10 @@
             </form>
 
             <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="cart.html"><i class="fa fa-shopping-cart fa-2x"></i></a></li>
-                <li><a href="account.html"><i class="fa fa-user fa-2x"></i></a></li>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="products.php">Products</a></li>
+                <li><a href="cart.php"><i class="fa fa-shopping-cart fa-2x"></i></a></li>
+                <li><a href="account.php"><i class="fa fa-user fa-2x"></i></a></li>
             </ul>
         </nav>
     </header>

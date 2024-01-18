@@ -16,7 +16,7 @@ include "partials/header.php";
     echo "<p class='session' id='{$_SESSION['state']}'>{$_SESSION['add']}</p>";
     unset($_SESSION['add']);
   }
-  
+
   ?>
 </div>
 
@@ -41,11 +41,32 @@ include "partials/header.php";
 
     <label for="category">
       Category: <select name="category" id="category">
-        <option value="1">Mobile</option>
+        <!-- <option value="1">Mobile</option>
         <option value="2">Laptop</option>
         <option value="3">Tablet</option>
         <option value="4">PC</option>
-        <option value="5">Accessory</option>
+        <option value="5">Accessory</option> -->
+
+        <?php
+        $sql = "SELECT * FROM category;";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+
+          if (mysqli_num_rows($result) > 0) {
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+              if ($row["active"] == 0) {
+        ?>
+                <option value="<?php echo $row["category_id"]; ?>"><?php echo $row["category_name"]; ?></option>
+        <?php
+              }
+            }
+          }
+        }
+        ?>
+
       </select>
     </label>
 
@@ -194,8 +215,6 @@ if (isset($_GET["id"])) {
   $result = mysqli_query($conn, $sql);
 
   queryMessage("Remove", $result);
-
-  
 }
 
 mysqli_close($conn);
@@ -204,22 +223,22 @@ mysqli_close($conn);
 <?php
 function returnHeader()
 {
-    header("Location: {$_SERVER['PHP_SELF']}");
-    ob_flush();
+  header("Location: {$_SERVER['PHP_SELF']}");
+  ob_flush();
 }
 
-function queryMessage($state, $result) {
+function queryMessage($state, $result)
+{
 
-    if($result) {
-        $_SESSION['add'] = "Product {$state} Successfuly";
-        $_SESSION['state'] = "success";
-    }else {
-        $_SESSION['add'] = "Product {$state} Unsuccessfully";
-        $_SESSION['state'] = "invalid";
-    }
+  if ($result) {
+    $_SESSION['add'] = "Product {$state} Successfuly";
+    $_SESSION['state'] = "success";
+  } else {
+    $_SESSION['add'] = "Product {$state} Unsuccessfully";
+    $_SESSION['state'] = "invalid";
+  }
 
-    returnHeader();
-
+  returnHeader();
 }
 ?>
 
