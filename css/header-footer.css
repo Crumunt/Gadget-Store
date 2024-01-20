@@ -1,4 +1,5 @@
 @import url(variables.css);
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 *,
 *::before,
@@ -6,6 +7,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
 }
 
 header {
@@ -66,6 +68,26 @@ ul a:hover {
     padding: 1rem;
     border-radius: 8px;
     border: 1px solid black;
+}
+
+.font-awesome::before,
+.font-awesome::after {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font: var(--fa-font-solid);
+}
+
+.font-awesome.search::before {
+    content: "\f002";
+}
+
+.font-awesome.cart::before {
+    content: "\f07a";
+}
+
+.font-awesome.account::before {
+    content: "\f007";
 }
 
 /* Footer */

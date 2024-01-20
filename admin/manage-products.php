@@ -41,12 +41,6 @@ include "partials/header.php";
 
     <label for="category">
       Category: <select name="category" id="category">
-        <!-- <option value="1">Mobile</option>
-        <option value="2">Laptop</option>
-        <option value="3">Tablet</option>
-        <option value="4">PC</option>
-        <option value="5">Accessory</option> -->
-
         <?php
         $sql = "SELECT * FROM category;";
         $result = mysqli_query($conn, $sql);
@@ -116,11 +110,11 @@ include "partials/header.php";
 
       ?>
             <tr>
-              <td><?php echo $product_count++; ?></td>
-              <td><?php echo $product_name; ?></td>
+              <td><p><?php echo $product_count++; ?></p></td>
+              <td><p><?php echo $product_name; ?></p></td>
               <td><img src="../images/products/<?php echo $product_image ?>" alt="<?php $product_image ?>"></td>
-              <td><?php echo $product_quantity; ?></td>
-              <td><?php echo $product_price; ?></td>
+              <td><p><?php echo $product_quantity; ?></p></td>
+              <td><p><?php echo $product_price; ?></p></td>
               <td>
                 <a href="update-product.php?id=<?php echo $id; ?>" class="update">Update Product</a>
                 <a href="manage-products.php?id=<?php echo $id; ?>" class="remove">Delete Product</a>

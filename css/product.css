@@ -45,7 +45,7 @@
 .product {
     width: 100%;
     /* height: fit-content; */
-    height: fit-content;
+    height: 40vh;
     border: 1px solid black;
     border-radius: 1rem;
     overflow: hidden;
@@ -54,7 +54,9 @@
 }
 
 .product img {
+    height: 100%;
     width: 100%;
+    object-fit: cover;
     display: block;
 }
 
@@ -71,6 +73,7 @@
     left: 10%;
     translate: 0 200px;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .overlay-text {
@@ -81,13 +84,31 @@
     font-size: 2rem;
 }
 
+.overlay-text p {
+    max-width: 70%;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .overlay button {
     background-color: var(--bg-highlight);
     color: whitesmoke;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 500;
     padding: .5rem;
     border: 1px solid;
     border-radius: 8px;
+    margin-top: 2rem;
+    transition: scale 400ms;
+}
+
+.overlay button:hover {
+    scale: 1.1;
+    background-color: var(--bg-highlight-hover);
 }
 
 .product:hover > .overlay {

@@ -81,6 +81,8 @@ tbody td button {
     font-weight: bold;
 } */
 
+@import url(header-footer.css);
+
 main {
     display: grid;
     place-items: center;
@@ -157,7 +159,10 @@ main {
 
 .quantity-wrapper .quantity {
     text-align: center;
-    /* padding: 1rem; */
+    width: 30px;
+}
+
+.quantity-wrapper img {
     width: 30px;
 }
 

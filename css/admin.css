@@ -131,6 +131,7 @@ main:not(main.dashboard) {
 table {
     border: 1px solid black;
     border-collapse: collapse;
+    table-layout: fixed;
     width: 100%;
 }
 
@@ -145,21 +146,30 @@ table tbody td {
     text-align: center;
 }
 
-thead th:first-child {
+table th:nth-child(1) {
     width: 7%;
 }
 
-thead th:nth-child(2),
-thead th:nth-child(3) {
-    width: 30%;
+table th:nth-child(2),
+table th:nth-child(3) {
+    max-width: 25%;
 }
 
-thead.admin th:nth-child(4) {
-    width: 40%;
+table.manage-products-table th:nth-child(4),
+table.manage-products-table th:nth-child(5) {
+    width: 10%;
 }
 
-table tbody td:nth-child(4) {
-    padding: 2rem;
+table.manage-products-table th:nth-child(6) {
+    width: 20%;
+}
+
+table td:nth-child(2) p {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 table a,
@@ -203,6 +213,20 @@ form#category label[for="isActive"] input {
 
 
 /* ------MODIFY TABLE ENDS------------- */
+
+
+/* Manage admin table start */
+
+table.manage-admin-table th:nth-child(4),
+table.manage-category-table th:nth-child(4) {
+    width: 30%;
+}
+
+table:not(table.manage-products-table) tbody td:nth-child(4) {
+    padding: 2rem;
+}
+
+/* Manage admin table end */
 
 
 /* --------------FORM START---------------------- */

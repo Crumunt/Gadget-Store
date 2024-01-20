@@ -1,79 +1,70 @@
-<!DOCTYPE php>
-<php lang="en">
+<?php
+include "config/connection.php";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gadget Store Something</title>
+    <title>Gadget Store something</title>
 
-    <link rel="stylesheet" href="css/header-footer.css">
     <link rel="stylesheet" href="css/item.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="js/item.js" defer></script>
+    <script src="https://kit.fontawesome.com/986602f906.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
 
+    <?php include "user-partials/header.php" ?>
 
-    <header>
-        <nav>
-            <div class="logo-wrapper">
-                <img src="images/logo.png" alt="Store logo - Axiom Discover Limitless Possibilities">
-            </div>
+    <?php
 
-            <form action="#" class="search-form">
+    $product_id = $_GET["id"];
 
-                <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><i class="fa fa-search"></i></button>
+    $sql = "SELECT * FROM products WHERE product_id=$product_id";
 
-            </form>
+    $result = mysqli_query($conn, $sql);
 
-            <ul>
-                <li><a href="home.php">Home</a></li>
-                <li><a href="products.php">Products</a></li>
-                <li><a href="cart.php"><i class="fa fa-shopping-cart fa-2x"></i></a></li>
-                <li><a href="account.php"><i class="fa fa-user fa-2x"></i></a></li>
-            </ul>
-        </nav>
-    </header>
+    if ($result) {
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
 
+            $product_name = $row["product_name"];
+            $product_image = $row["product_image"];
+            $product_price = $row["product_price"];
+            $product_quantity = $row["product_quantity"];
+            $product_description = $row["product_description"];
+        }
+    }
+    ?>
 
     <main>
 
         <div class="content-wrapper">
             <div class="topContent">
                 <div class="image-wrapper">
-                    <img src="images/daniel-korpai-wW7XbWYoqK8-unsplash.jpg" alt="">
+                    <img src="images/products/<?php echo $product_image; ?>" alt="">
                 </div>
                 <div class="basicInfo-wrapper">
                     <div class="header">
-                        <h1>Product Name</h1>
-                        <p class="price">&#8369; <span>1299</span></p>
+                        <h1><?php echo $product_name; ?></h1>
+                        <p class="price-quantity"><span>&#8369;<?php echo $product_price; ?></span> <span class="quantity"><?php echo $product_quantity ?> left</span></p>
+                        <p class="desc"><span style="font-weight: 500;">Description:</span> <?php echo nl2br($product_description); ?></p>
                     </div>
-                    <div class="desc-wrapper">
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum animi beatae id facere. Quod,
-                            vero aliquam. Excepturi ipsam iste quo, labore molestiae illo adipisci blanditiis. Vel,
-                            possimus unde. Voluptas tempora nostrum officia sequi magni, ex enim rem nesciunt quidem,
-                            consectetur deserunt ea molestiae vel illo fugiat necessitatibus modi numquam ad?
-                            Praesentium beatae quisquam deleniti repudiandae consequatur nisi commodi laborum ipsum
-                            doloremque dolores autem doloribus a ipsa amet facilis rem, harum quas natus aliquam alias.
-                            Ut necessitatibus vitae vel, doloremque ipsa consequuntur officiis architecto voluptatem
-                            odio veritatis quaerat animi ad, delectus quas, earum officia fuga aperiam labore magnam
-                            voluptatum? Nulla ut eligendi voluptatem totam veniam neque dolorum at exercitationem saepe,
-                            nihil fugiat iusto quaerat? Dolorum praesentium distinctio magni, non odit molestiae atque
-                            accusamus suscipit beatae ducimus quisquam sequi fugit fuga nostrum recusandae. Modi,
-                            excepturi maxime? Enim aperiam nisi aliquam magnam nulla, eius minima. Rem consequatur,
-                            obcaecati neque consequuntur quas corporis dolorum esse et. Delectus facilis praesentium et
-                            consequatur nulla? Cumque ea corrupti hic repellat expedita unde libero dicta cupiditate,
-                            asperiores omnis obcaecati officiis porro, impedit eligendi ut esse ipsa nulla ad
-                            perspiciatis quos dignissimos? Sit dicta quas voluptate maxime eos. Dolorem alias eveniet
-                            perspiciatis ad corporis consequuntur officia aut blanditiis praesentium.</p>
-                    </div>
+                    <!-- <div class="desc-wrapper">
+                            
+                        </div> -->
                     <form action="#" class="action-form">
-                        <button>Add to Cart</button>
-                        <button>Buy Now</button>
+                        <label for="product_quantity">
+                            Quantity: <img src="images/assets/minus-solid.svg" alt="" class="decrement"> <input type="tel" name="product_quantity" value="1"> <img src="images/assets/plus-solid.svg" alt="" class="increment">
+
+                        </label>
+                        <div class="button-wrapper">
+                            <button>Add to Cart</button>
+                            <button>Buy Now</button>
+                        </div>
 
                     </form>
                 </div>
@@ -84,25 +75,28 @@
     </main>
 
 
-    <footer>
-        <div class="social-wrapper">
-            <a href="#"> <img src="/images/email.png" alt="Send us an email"></a>
-            <a href="#"><img src="/images/facebook.png" alt="Facebook Link"></a>
-            <a href="#"><img src="/images/instagram.png" alt="Instagram Link"></a>
-        </div>
-
-        <div class="copyright">
-            <p>All Rights Reserved, Copyright &copy; 2024</p>
-        </div>
-
-        <div class="location-wrapper">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d422227.50765885855!2d105.65977353169933!3d-10.517921484080784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sph!4v1704454815526!5m2!1sen!2sph"
-                width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </footer>
+    <?php include "user-partials/footer.php"; ?>
 
 </body>
 
-</php>
+</html>
+
+<script>
+
+const QUANTITY = document.querySelector('input[name="product_quantity"]');
+const INCREMENT = document.querySelector('.increment');
+const DECREMENT = document.querySelector('.decrement');
+
+
+INCREMENT.addEventListener('click', ()=> {
+    QUANTITY.value = Number(QUANTITY.value) + 1;
+})
+
+DECREMENT.addEventListener('click', ()=> {
+    if(Number(QUANTITY.value) <= 1) {
+        return;
+    }
+    QUANTITY.value = Number(QUANTITY.value) - 1;
+})
+
+</script>

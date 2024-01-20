@@ -72,9 +72,9 @@ include "partials/header.php";
 
             ?>
                         <tr>
-                            <td><?php echo $admin_count++; ?></td>
-                            <td><?php echo $fullname; ?></td>
-                            <td><?php echo $username; ?></td>
+                            <td><p><?php echo $admin_count++; ?></p></td>
+                            <td><p><?php echo $fullname; ?></p></td>
+                            <td><p><?php echo $username; ?></p></td>
                             <td>
                                 <a href="update-admin.php?id=<?php echo $id; ?>" class="update">Update Admin</a>
                                 <a href="manage-admin.php?id=<?php echo $id; ?>" class="remove">Delete Admin</a>

@@ -10,37 +10,16 @@ include "config/connection.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gadget Store Something</title>
-
+    <title>Gadget Store something</title>
 
     <link rel="stylesheet" href="css/product.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/986602f906.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
 
-    <header>
-        <nav>
-            <div class="logo-wrapper">
-                <img src="images/logo.png" alt="Store logo - Axiom Discover Limitless Possibilities">
-            </div>
-
-            <form action="#" class="search-form">
-
-                <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><i class="fa fa-search"></i></button>
-
-            </form>
-
-            <ul>
-                <li><a href="home.php">Home</a></li>
-                <li><a href="products.php">Products</a></li>
-                <li><a href="cart.php"><i class="fa fa-shopping-cart fa-2x"></i></a></li>
-                <li><a href="account.php"><i class="fa fa-user fa-2x"></i></a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include "user-partials/header.php" ?>
 
 
     <section class="categories">
@@ -65,12 +44,6 @@ include "config/connection.php";
             }
         }
         ?>
-
-        <!-- <button class="category" id="mobile">Mobile</button>
-        <button class="category" id="laptop">Laptops</button>
-        <button class="category" id="tablet">Tablets</button>
-        <button class="category" id="pc">PC</button>
-        <button class="category" id="accessories">Accessories</button> -->
 
     </section>
 
@@ -99,7 +72,7 @@ include "config/connection.php";
                             <div class="overlay">
                                 <div class="overlay-text">
                                     <p><?php echo $product_name ?></p>
-                                    <a href="item.php?item=<?php echo $product_id ?>"><button class="viewItem">View Item</button></a>
+                                    <a href="item.php?id=<?php echo $product_id ?>"><button class="viewItem">View Item</button></a>
                                 </div>
                             </div>
                         </div>
@@ -145,19 +118,16 @@ include "config/connection.php";
                                     $product_image = $row["product_image"];
                                     $product_id = $row["product_id"];
                         ?>
-                                    <!-- <div class="products-wrapper" id="<?php echo $category_name ?>"> -->
 
                                     <div class="product">
                                         <img src="images/products/<?php echo $product_image; ?>" alt="product image">
                                         <div class="overlay">
                                             <div class="overlay-text">
                                                 <p><?php echo $product_name ?></p>
-                                                <a href="item.php?item=<?php echo $product_id ?>"><button class="viewItem">View Item</button></a>
+                                                <a href="item.php?id=<?php echo $product_id ?>"><button class="viewItem">View Item</button></a>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- </div> -->
                         <?php
                                 }
                             }
@@ -172,55 +142,14 @@ include "config/connection.php";
 
         ?>
 
-        <!-- <div class="products-wrapper" id="mobile">
-
-
-
-        </div>
-
-        <div class="products-wrapper" id="laptop">
-
-
-        </div>
-
-        <div class="products-wrapper" id="tablet">
-
-
-
-        </div>
-
-        <div class="products-wrapper" id="pc">
-
-
-
-        </div>
-
-        <div class="products-wrapper" id="accessories">
-
-
-
-        </div> -->
-
     </section>
 
 
-    <footer>
-        <div class="social-wrapper">
-            <a href="#"> <img src="images/email.png" alt="Send us an email"></a>
-            <a href="#"><img src="images/facebook.png" alt="Facebook Link"></a>
-            <a href="#"><img src="images/instagram.png" alt="Instagram Link"></a>
-        </div>
-
-        <div class="copyright">
-            <p>All Rights Reserved, Copyright &copy; 2024</p>
-        </div>
-
-        <div class="location-wrapper">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d422227.50765885855!2d105.65977353169933!3d-10.517921484080784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sph!4v1704454815526!5m2!1sen!2sph" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </footer>
+    <?php include "user-partials/footer.php"; ?>
 
 </body>
+
+</html>
 
 <script>
     let lastCategory = null
@@ -249,5 +178,3 @@ include "config/connection.php";
 
     }))
 </script>
-
-</html>

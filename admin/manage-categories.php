@@ -38,8 +38,8 @@ include "partials/header.php";
 
 </dialog>
 
-<main class="manage-admin">
-    <table class="manage-admin-table">
+<main>
+    <table class="manage-category-table">
         <thead class="admin">
             <th>ID</th>
             <th>Category Name</th>
@@ -70,9 +70,9 @@ include "partials/header.php";
 
             ?>
                         <tr>
-                            <td><?php echo $category_count++; ?></td>
-                            <td><?php echo $category_name; ?></td>
-                            <td><?php echo ($active == 0) ? "Active" : "Not Active"; ?></td>
+                            <td><p><?php echo $category_count++; ?></p></td>
+                            <td><p><?php echo $category_name; ?></p></td>
+                            <td><p><?php echo ($active == 0) ? "Active" : "Not Active"; ?></p></td>
                             <td>
                                 <a href="update-category.php?id=<?php echo $id; ?>" class="update">Update Category</a>
                                 <a href="manage-categories.php?id=<?php echo $id; ?>" class="remove">Delete Category</a>

@@ -7,6 +7,7 @@
 
     <!-- css link -->
     <link rel="stylesheet" href="../css/admin.css">
+    <!-- <link rel="stylesheet" href="../css/admin-products.css"> -->
     <link rel="stylesheet" href="../css/variables.css">
     <script src="https://kit.fontawesome.com/986602f906.js" crossorigin="anonymous"></script>
     <script src="../js/admin.js" defer></script>

@@ -1,5 +1,5 @@
-const INCREMENT_BUTTON = document.querySelectorAll('.fa.fa-plus')
-const DECREMENT_BUTTON = document.querySelectorAll('.fa.fa-minus')
+const INCREMENT_BUTTON = document.querySelectorAll('.increment')
+const DECREMENT_BUTTON = document.querySelectorAll('.decrement')
 
 INCREMENT_BUTTON.forEach(increment => increment.addEventListener('click', () => {
 

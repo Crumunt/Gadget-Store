@@ -18,6 +18,11 @@ $sql = "SELECT * FROM products WHERE product_id=$product_id";
 
 $result = mysqli_query($conn, $sql);
 
+if (isset($_SESSION["desc"])) {
+    echo nl2br($_SESSION["desc"]);
+    unset($_SESSION["desc"]);
+}
+
 if ($result) {
 
     $row = mysqli_fetch_assoc($result);
@@ -79,7 +84,6 @@ if (isset($_POST["save"])) {
 
     //query succeded
     queryMessage("Update", $result);
-
 } elseif (isset($_POST["cancel"])) {
     $_SESSION["add"] = "Update Cancelled";
     $_SESSION['state'] = "invalid";
@@ -95,13 +99,16 @@ function checkQuery()
 {
 
     $product_id = $_GET["id"];
+    $product_name = $_POST["product_name"];
+    $product_price = $_POST["product_price"];
+    $product_quantity = $_POST["product_quantity"];
+    $product_desc = $_POST["product_description"];
 
-    if (isset($_FILES["product_image"]["name"])) {
+    $product_desc = str_replace("'", "\'", $product_desc);
 
-        $product_name = $_POST["product_name"];
-        $product_price = $_POST["product_price"];
-        $product_quantity = $_POST["product_quantity"];
-        $product_desc = $_POST["product_description"];
+    $sql = "";
+
+    if (isset($_FILES["product_image"]["name"]) && !empty($_FILES["product_image"]["name"])) {
 
         // get image name
         $image_name = $_FILES["product_image"]["name"];
@@ -139,17 +146,19 @@ function checkQuery()
             $sql = "UPDATE products SET
                     product_name='{$product_name}', product_image='{$image_name}',
                     product_quantity='{$product_quantity}', product_price='{$product_price}',
-                    product_description='{$product_desc}' WHERE product_id={$product_id}";
+                    product_description='{$product_desc}' WHERE product_id={$product_id};";
 
-            return $sql;
+
+            $_SESSION["desc"] = $product_desc;
         }
-    }
+    } else {
 
-
-    $sql = "UPDATE products SET
+        $sql = "UPDATE products SET
             product_name='{$product_name}', product_quantity='{$product_quantity}',
             product_price='{$product_price}', product_description='{$product_desc}'
-            WHERE product_id={$product_id}";
+            WHERE product_id={$product_id};";
+
+    }
 
     return $sql;
 }
