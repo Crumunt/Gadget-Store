@@ -44,10 +44,6 @@
     padding: 2rem;
 }
 
-.desc-wrapper {
-    width: 100%;
-}
-
 .header p {
     font-size: 1.25rem;
 }
@@ -59,6 +55,7 @@
     text-align: justify;
     /* text-wrap: wrap; */
     overflow-y: scroll;
+    padding-right: 1rem;
 }
 
 .action-form {
@@ -88,6 +85,7 @@
 label {
     display: flex;
     align-items: center;
+    font-size: 1.25rem;
 }
 
 label input {
