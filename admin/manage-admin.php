@@ -2,9 +2,12 @@
 ob_start();
 session_start();
 $activePage = basename($_SERVER['PHP_SELF'], ".php");
-include "../config/connection.php";
+// include "../config/connection.php";
 include "partials/session_message.php";
 include "partials/header.php";
+include "../classes/dbh.class.php";
+include "../classes/admin.class.php";
+include "../classes/admin-view.class.php";
 ?>
 
 <div class="header-wrapper">
@@ -21,7 +24,7 @@ include "partials/header.php";
 
 <dialog class="modal" id="modal">
     <h2>Add Admin</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+    <form action="../includes/manage-admin.inc.php" method="POST">
         <label for="fullname">
             Full Name: <input type="text" name="admin_fullname">
         </label>
@@ -52,116 +55,43 @@ include "partials/header.php";
 
         <tbody>
             <?php
-            $sql = "SELECT * FROM admin";
-            $result = mysqli_query($conn, $sql);
 
-            if ($result == true) {
+            $adminView = new AdminView();
+            $result = $adminView->fetchAdmins();
+            $admin_count = 1;
 
-                $count = mysqli_num_rows($result);
-
-                //We have data stored in database
-                if ($count > 0) {
-
-                    $admin_count = 1;
-
-                    while ($row = mysqli_fetch_assoc($result)) {
-
-                        $id = $row["id"];
-                        $fullname = $row["full_name"];
-                        $username = $row["username"];
-
+            foreach ($result as $value) {
             ?>
-                        <tr>
-                            <td><p><?php echo $admin_count++; ?></p></td>
-                            <td><p><?php echo $fullname; ?></p></td>
-                            <td><p><?php echo $username; ?></p></td>
-                            <td>
-                                <a href="update-admin.php?id=<?php echo $id; ?>" class="update">Update Admin</a>
-                                <a href="manage-admin.php?id=<?php echo $id; ?>" class="remove">Delete Admin</a>
-                            </td>
-                        </tr>
+
+                <tr>
+                    <td>
+                        <p>
+                            <?php echo $admin_count++; ?>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <?php echo $value["full_name"]; ?>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <?php echo $value["username"]; ?>
+                        </p>
+                    </td>
+                    <td>
+                        <a href="update-admin.php?id=<?php echo $value["id"]; ?>" class="update">Update Admin</a>
+                        <a href="../includes/manage-admin.inc.php?id=<?php echo $value["id"]; ?>" class="remove">Delete Admin</a>
+                    </td>
+                </tr>
+
             <?php
-
-                    }
-                } else { //we don't have data in database
-
-                }
             }
+
             ?>
         </tbody>
     </table>
 
 </main>
-
-<!-- STORE DATA TO DATABASE -->
-<?php
-if (isset($_POST["save_admin"])) {
-    $fullname = filter_input(INPUT_POST, 'admin_fullname', FILTER_SANITIZE_SPECIAL_CHARS);
-    $username = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_SPECIAL_CHARS);
-    $password = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_SPECIAL_CHARS);
-
-    if (empty($fullname)) {
-        $_SESSION['add'] = "Please provide name";
-        $_SESSION['state'] = "invalid";
-        returnHeader();
-    } elseif (empty($username)) {
-        $_SESSION['add'] = "Please provide username";
-        $_SESSION['state'] = "invalid";
-        returnHeader();
-    } elseif (empty($password)) {
-        $_SESSION['add'] = "Please provide password";
-        $_SESSION['state'] = "invalid";
-        returnHeader();
-    } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $sql = "INSERT INTO admin (full_name, username, password)
-                    VALUES('$fullname', '$username', '$hashedPassword')";
-
-        $result = mysqli_query($conn, $sql);
-
-        queryMessage("Added", $result);
-
-        // returnHeader();
-    }
-
-    // echo $_POST["save_admin"];
-}
-
-if (isset($_GET["id"])) {
-
-    $admin_id = $_GET["id"];
-    $sql = "DELETE FROM admin WHERE id=$admin_id";
-    $result = mysqli_query($conn, $sql);
-
-    queryMessage("Remove", $result);
-}
-
-mysqli_close($conn);
-?>
-
-<?php
-
-function returnHeader()
-{
-    header("Location: {$_SERVER['PHP_SELF']}");
-    ob_flush();
-}
-
-function queryMessage($state, $result) {
-
-    if($result) {
-        $_SESSION['add'] = "Admin {$state} Successfuly";
-        $_SESSION['state'] = "success";
-    }else {
-        $_SESSION['add'] = "Admin {$state} Unsuccessfully";
-        $_SESSION['state'] = "invalid";
-    }
-
-    returnHeader();
-
-}
-
-?>
 
 <?php include "partials/footer.php"; ?>
