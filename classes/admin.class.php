@@ -50,8 +50,8 @@ class Admin extends Dbh
         return $result;
     }
 
-    // sets(create,add) new admin
-    protected function setAdmin($full_name, $username, $password)
+    // create new admin
+    protected function createAdmin($full_name, $username, $password)
     {
         $stmt = $this->connect()->prepare('INSERT INTO admin(full_name,username,password) VALUES (?, ?, ?);');
 
@@ -67,16 +67,17 @@ class Admin extends Dbh
     }
 
 
-    protected function updateAdmin($full_name, $username, $password)
+    protected function setAdmin($full_name, $username, $admin_id)
     {
 
-        $stmt = $this->connect()->prepare('UPDATE admin SET $full_name=?, $username=?, $password=?');
+        $stmt = $this->connect()->prepare('UPDATE admin SET $full_name=?, $username=? WHERE id=?;');
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        if (!$stmt->execute(array($full_name, $username, $hashedPassword))) {
+        if (!$stmt->execute(array($full_name, $username, $admin_id))) {
             $stmt = null;
             header("location: manage-admin.php?error=updateFailed");
+            return "invalid";
             exit();
         }
         

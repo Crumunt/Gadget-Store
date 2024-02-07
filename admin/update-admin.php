@@ -12,7 +12,7 @@ include "partials/header.php";
 
 
 <?php
-$admin_id = $_GET["id"];
+$admin_id = $_GET["updateId"];
 
 $sql = "SELECT * FROM admin WHERE id=$admin_id";
 
@@ -22,7 +22,7 @@ if ($result) {
 
     $row = mysqli_fetch_assoc($result);
 ?>
-    <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="update_form">
+    <form action="../includes/manage-admin.inc.php" method="POST" class="update_form">
 
 
         <p>
@@ -39,7 +39,7 @@ if ($result) {
 
         <div class="button-wrapper">
             <input type="submit" name="save" value="Save Changes" class="update">
-            <input type="submit" name="cancel" value="Cancel" class="remove">
+            <input type="submit" name="cancelUpdate" value="Cancel" class="remove">
         </div>
     </form>
 <?php
@@ -48,51 +48,51 @@ if ($result) {
 
 
 <?php
-if (isset($_POST["save"])) {
+// if (isset($_POST["save"])) {
 
 
-    $fullname = $_POST["full_name"];
-    $username = $_POST["username"];
+//     $fullname = $_POST["full_name"];
+//     $username = $_POST["username"];
 
-    $sql = "UPDATE admin SET full_name='{$fullname}',username='{$username}'
-            WHERE id=$admin_id";
+//     $sql = "UPDATE admin SET full_name='{$fullname}',username='{$username}'
+//             WHERE id=$admin_id";
 
-    $result = mysqli_query($conn, $sql);
+//     $result = mysqli_query($conn, $sql);
 
-    //query succeded
-    queryMessage("Update", $result);
+//     //query succeded
+//     queryMessage("Update", $result);
 
-} elseif (isset($_POST["cancel"])) {
-    $_SESSION["add"] = "Update Cancelled";
-    $_SESSION['state'] = "invalid";
-    returnHeader();
-}
+// } elseif (isset($_POST["cancel"])) {
+//     $_SESSION["add"] = "Update Cancelled";
+//     $_SESSION['state'] = "invalid";
+//     returnHeader();
+// }
 
-mysqli_close($conn);
+// mysqli_close($conn);
 ?>
 
 
 <?php
 
-function returnHeader()
-{
-    header("Location: manage-admin.php");
-    ob_flush();
-}
+// function returnHeader()
+// {
+//     header("Location: manage-admin.php");
+//     ob_flush();
+// }
 
-function queryMessage($state, $result) {
+// function queryMessage($state, $result) {
 
-    if($result) {
-        $_SESSION['add'] = "Admin {$state} Successfuly";
-        $_SESSION['state'] = "success";
-    }else {
-        $_SESSION['add'] = "Admin {$state} Unsuccessfully";
-        $_SESSION['state'] = "invalid";
-    }
+//     if($result) {
+//         $_SESSION['add'] = "Admin {$state} Successfuly";
+//         $_SESSION['state'] = "success";
+//     }else {
+//         $_SESSION['add'] = "Admin {$state} Unsuccessfully";
+//         $_SESSION['state'] = "invalid";
+//     }
 
-    returnHeader();
+//     returnHeader();
 
-}
+// }
 
 ?>
 

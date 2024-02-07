@@ -38,4 +38,8 @@ class AdminContr extends Admin {
 
     }
 
+    public function updateAdmin($fullname,$username,$admin_id) {
+        $this->setAdmin($fullname, $username, $admin_id);
+    }
+
 }

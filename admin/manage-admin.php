@@ -80,8 +80,8 @@ include "../classes/admin-view.class.php";
                         </p>
                     </td>
                     <td>
-                        <a href="update-admin.php?id=<?php echo $value["id"]; ?>" class="update">Update Admin</a>
-                        <a href="../includes/manage-admin.inc.php?id=<?php echo $value["id"]; ?>" class="remove">Delete Admin</a>
+                        <a href="update-admin.php?updateId=<?php echo $value["id"]; ?>" class="update">Update Admin</a>
+                        <a href="../includes/manage-admin.inc.php?removeId=<?php echo $value["id"]; ?>" class="remove">Delete Admin</a>
                     </td>
                 </tr>
 
