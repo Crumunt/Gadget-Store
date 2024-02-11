@@ -1,8 +1,8 @@
 <?php
 $activePage = basename($_SERVER['PHP_SELF'], ".php");
 include "classes/dbh.class.php";
-include "classes/admin.class.php";
-include "classes/admin-view.class.php";
+include "classes/model/admin.class.php";
+include "classes/view/admin-view.class.php";
 include "partials/header.php";
 ?>
 

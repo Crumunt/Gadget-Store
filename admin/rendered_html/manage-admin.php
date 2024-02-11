@@ -2,10 +2,10 @@
 ob_flush();
 session_start();
 $activePage = basename($_SERVER['PHP_SELF'], ".php");
-include "partials/header.php";
-include "classes/dbh.class.php";
-include "classes/admin.class.php";
-include "classes/admin-view.class.php";
+include "../partials/header.php";
+include "../classes/dbh.class.php";
+include "../classes/model/admin.class.php";
+include "../classes/view/admin-view.class.php";
 ?>
 
 <div class="header-wrapper">
@@ -22,7 +22,7 @@ include "classes/admin-view.class.php";
 
 <dialog class="modal" id="modal">
     <h2>Add Admin</h2>
-    <form action="includes/manage-admin.inc.php" method="POST">
+    <form action="../formHandler/manage-admin.inc.php" method="POST">
         <label for="fullname">
             Full Name: <input type="text" name="admin_fullname">
         </label>

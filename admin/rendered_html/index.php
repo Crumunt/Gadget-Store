@@ -1,10 +1,10 @@
 <?php
 
 $activePage = basename($_SERVER['PHP_SELF'], ".php");
-include "classes/dbh.class.php";
-include "classes/dashboard.class.php";
-include "classes/dashboard-view.class.php";
-include "partials/header.php";
+include "../classes/dbh.class.php";
+include "../classes/model/dashboard.class.php";
+include "../classes/view/dashboard-view.class.php";
+include "../partials/header.php";
 
     $dashboardView = new DashboardView();
 
