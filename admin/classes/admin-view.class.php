@@ -21,7 +21,7 @@ class AdminView extends Admin {
     }
 
     public function fetchAdmin($admin_id) {
-        $admin = $this->getAdmin(1);
+        $admin = $this->getAdmin($admin_id);
 
         return $admin;
     }

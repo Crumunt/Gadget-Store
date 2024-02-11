@@ -39,7 +39,7 @@ class Admin extends Dbh
             exit();
         }
 
-        if (!$stmt->rowCount() == 0) {
+        if ($stmt->rowCount() == 0) {
             $stmt = null;
             header("location: manage-admin.php?error=adminNotFound");
             exit();
@@ -70,21 +70,19 @@ class Admin extends Dbh
     protected function setAdmin($full_name, $username, $admin_id)
     {
 
-        $stmt = $this->connect()->prepare('UPDATE admin SET $full_name=?, $username=? WHERE id=?;');
+        $stmt = $this->connect()->prepare("UPDATE admin SET full_name=?, username=? WHERE id=?;");
 
         // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         if (!$stmt->execute(array($full_name, $username, $admin_id))) {
             $stmt = null;
             header("location: manage-admin.php?error=updateFailed");
-            return "invalid";
             exit();
         }
         
 
         $stmt = null;
 
-        return "success";
     }
 
     

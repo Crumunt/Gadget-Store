@@ -16,7 +16,7 @@ class AdminContr extends Admin {
             exit();
         }
 
-        $this->setAdmin($fullname, $username, $password);
+        $this->createAdmin($fullname, $username, $password);
 
     }
     

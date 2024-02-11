@@ -1,36 +1,13 @@
 <?php
 
 $activePage = basename($_SERVER['PHP_SELF'], ".php");
-include "../config/connection.php";
+include "classes/dbh.class.php";
+include "classes/dashboard.class.php";
+include "classes/dashboard-view.class.php";
 include "partials/header.php";
-?>
 
-<?php
-    $sql_admin = "SELECT * FROM admin";
-    $sql_product = "SELECT * FROM products";
-    // $sql_order = "SELECT COUNT(*) AS Row_Count FROM orders";
+    $dashboardView = new DashboardView();
 
-    $result = mysqli_query($conn, $sql_admin);
-    if($result) {
-        $admin_count = mysqli_num_rows($result);
-    }else {
-        $admin_count = 0;
-    }
-
-    $result -> free_result();
-
-    $result = mysqli_query($conn, $sql_product);
-
-    if($result) {
-        $product_count = mysqli_num_rows($result);
-    }else {
-        $product_count = 0;
-    }
-
-    $result -> free_result();
-
-
-    mysqli_close($conn);
 ?>
 
 <div class="header-wrapper">
@@ -41,14 +18,14 @@ include "partials/header.php";
     <div class="box-wrapper">
         <div class="top">
             <i class="fa-solid fa-users fa-lg"></i>
-            <span><?php echo$admin_count;?></span>
+            <span><?php echo $dashboardView->fetchAdminCount();?></span>
         </div>
         <div class="bottom">admins</div>
     </div>
     <div class="box-wrapper">
         <div class="top">
             <i class="fa-solid fa-boxes-stacked fa-lg"></i>
-            <span><?php echo$product_count;?></span>
+            <span><?php echo $dashboardView->fetchProductCount();?></span>
         </div>
         <div class="bottom">products</div>
     </div>

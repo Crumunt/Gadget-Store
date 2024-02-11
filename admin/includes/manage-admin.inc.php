@@ -6,7 +6,26 @@ include "../classes/admin-contr.class.php";
 
 $adminContr = new AdminContr();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["cancelUpdate"])) {
+if(isset($_POST["updateAdmin"])) {
+
+    
+
+    $admin_id = $_POST["id"];
+    $fullname = $_POST["full_name"];
+    $username = $_POST["username"];
+
+
+    $adminContr->updateAdmin($fullname, $username, $admin_id);
+
+    session_start();
+
+    $_SESSION["add"] = "Admin Updated Sucessfully";
+    $_SESSION["state"] = "success";
+
+    header("location: ../manage-admin.php");
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["save_admin"])) {
 
     $fullname = filter_input(INPUT_POST, 'admin_fullname', FILTER_SANITIZE_SPECIAL_CHARS);
     $username = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -19,12 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["cancelUpdate"])) {
     $_SESSION["add"] = "Admin Added Sucessfully";
     $_SESSION["state"] = "success";
 
-    header("location: ../admin/manage-admin.php");
+    header("location: ../manage-admin.php");
 }
 
 if (isset($_GET["removeId"])) {
     
-    $admin_id = $_GET["id"];
+    $admin_id = $_GET["removeId"];
     
     $adminContr->delAdmin($admin_id);
 
@@ -32,7 +51,7 @@ if (isset($_GET["removeId"])) {
 
     $_SESSION["add"] = "Admin Removed Sucessfully";
     $_SESSION["state"] = "success";
-    header("location: ../admin/manage-admin.php");
+    header("location: ../manage-admin.php");
 
 }
 
@@ -53,6 +72,6 @@ if(isset($_POST["cancelUpdate"])) {
     $_SESSION["add"] = "Update Cancelled";
     $_SESSION["state"] = "invalid";
 
-    header("location: ../admin/manage-admin.php");
+    header("location: ../manage-admin.php");
 
 }
